@@ -9,7 +9,7 @@ public class GameHandler {
     public static int fallSpeed;
     public static int level;
     public static ArrayList<LBlock> blocksList = new ArrayList<>();
-    public static int [][] gameGrid = new int[20][10];
+    public static int [][] gameGrid = new int[22][12];
 
     //IMPORTANT REMEMBER THAT NEW GAME CLEARS THE ARRAY
 
@@ -22,8 +22,11 @@ public class GameHandler {
 
        for(int i = 0; i < gameGrid.length; i++){
            for(int j = 0; j < gameGrid[i].length; j++){
-
-               gameGrid[i][j] = 0;
+               if(j == 0 || j == 11 ||  i == 0 || i == 21){
+                   gameGrid[i][j] = 1;
+               }else{
+                   gameGrid[i][j] = 0;
+               }
 
            }
        }
