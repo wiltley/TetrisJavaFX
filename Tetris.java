@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import java.util.Scanner;
 
 import java.io.IOException;
 
@@ -19,8 +20,26 @@ public class Tetris extends Application {
 
     public static void main(String[] args) {
 
+        GameHandler.new_game();
         GameHandler.blocksList.add(new LBlock());
-        launch();
+
+        Scanner scan = new Scanner(System.in);
+        String scanned;
+        GameHandler.printGrid();
+        while(true){
+
+            scanned = scan.nextLine();
+            System.out.println(scanned);
+            if(scanned.equals("r")){
+                //GameHandler.blocksList.get(0).updateArray(GameHandler.gameGrid);
+                GameHandler.updateArray();
+                GameHandler.printGrid();
+
+            }
+            System.out.println("-------------------------------");
+
+        }
+        //launch();
     }
 
 
