@@ -8,7 +8,7 @@ public class GameHandler {
     public static int timer;
     public static int fallSpeed;
     public static int level;
-    public static ArrayList<LBlock> blocksList = new ArrayList<>();
+    public static ArrayList<Block> blocksList = new ArrayList<>();
     public static int [][] gameGrid = new int[22][12];
 
     //IMPORTANT REMEMBER THAT NEW GAME CLEARS THE ARRAY
