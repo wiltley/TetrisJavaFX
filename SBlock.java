@@ -13,6 +13,7 @@ public class SBlock extends Block{
     @Override
     public int[][] rotateR(int[][] array){
 
+
         return array;
 
     }

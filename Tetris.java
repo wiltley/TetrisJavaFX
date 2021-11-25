@@ -8,7 +8,7 @@ public class Tetris {
     public static void main(String[] args) {
 
         GameHandler.new_game();
-        GameHandler.blocksList.add(new ZBlock());
+        GameHandler.blocksList.add(new LBlock());
         UIController UI = new UIController();
 
         Scanner scan = new Scanner(System.in);

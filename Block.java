@@ -3,12 +3,12 @@ package com.example.tetris;
 public abstract class Block {
 
     int[][] currentCoords;
+
     Block(){
+
         // currentCords is an array that holds an array.
         // the array that it holds is containing the x and y coordinates of the block in the main array.
         // fix issue where stuff are inverted
-
-
 
     }
 
