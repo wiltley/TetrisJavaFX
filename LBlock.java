@@ -1,59 +1,46 @@
 package com.example.tetris;
 
-import java.util.Arrays;
 
 public class LBlock extends Block {
 
-    public int state;
+    public int current_state;
     LBlock(){
 
+        super();
         currentCoords = new int[4][];
         currentCoords[0] = new int[]{1,5};
         currentCoords[1] = new int[]{2,5};
         currentCoords[2] = new int[]{2,4};
         currentCoords[3] = new int[]{2,3};
-
-        // states are written in my notebook
-        state = 2;
-
+        current_state = 2;
 
     }
     @Override
-    public int[][] rotateR(int[][] array){
+    public int[][] rotate(int[][] array, int dir){
 
-        return array;
-
-    }
-
-    @Override public int[][] rotateL(int[][] array){
-        return array;
-
-    }
-
-    public int[][] checkIfFree(int [][] array){
-        int[][] futureCoords = new int[2][2];
-        if(this.state == 2){
-
-            if((array[currentCoords[0][0]][currentCoords[0][1]-2] == 0) &&
-                    (array[currentCoords[1][0]-1][currentCoords[0][1]-1] == 0 &&
-                            array[currentCoords[3][0]+1][currentCoords[3][1]+1] == 0)){
-                this.state = 3;
-            }
-
-        }else if(this.state == 3){
-            if((array[currentCoords[0][0]+2][currentCoords[0][1]] == 0) &&
-                    (array[currentCoords[1][0]+1][currentCoords[0][1]-1] == 0 &&
-                            array[currentCoords[3][0]+1][currentCoords[3][1]+1] == 0)) {
-                this.state = 4;
-            }
-        }else if(this.state == 4){
-            if((array[currentCoords[0][0]][currentCoords[0][1]+2] == 0) &&
-                    (array[currentCoords[1][0]+1][currentCoords[0][1]+1] == 0 &&
-                            array[currentCoords[3][0]-2][currentCoords[3][1]-1] == 0)) {
-                this.state = 1;
-            }
+        if(possibleStates.get(current_state+dir)){
+            
         }
         return array;
+
+    }
+
+    @Override
+    public void checkIfFree(int [][] array) {
+
+        int[][]slice = getSlice(array);
+
+        if(slice[0][1] == 0 && slice[2][1] == 0 && slice[2][2] == 0){ this.possibleStates.put(1, true);}
+        else{this.possibleStates.put(1, true);}
+
+        if(slice[1][0] == 0 && slice[1][2] == 0 && slice[0][2] == 0){ this.possibleStates.put(2, true);}
+        else{this.possibleStates.put(2, false);}
+
+        if(slice[0][0] == 0 && slice[0][1] == 0 && slice[1][2] == 0){ this.possibleStates.put(3, true);}
+        else{this.possibleStates.put(3, false);}
+
+        if(slice[1][0] == 0 && slice[2][0] == 0 && slice[1][2] == 0){this.possibleStates.put(4, true);}
+        else{this.possibleStates.put(4,false);}
 
     }
 

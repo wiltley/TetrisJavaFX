@@ -11,7 +11,7 @@ public class SBlock extends Block{
     }
 
     @Override
-    public int[][] rotateR(int[][] array){
+    public int[][] rotate(int[][] array, int dir){
 
 
         return array;
@@ -19,9 +19,8 @@ public class SBlock extends Block{
     }
 
     @Override
-    public int[][] rotateL(int[][] array){
-
-        return array;
+    public void checkIfFree(int[][] array) {
 
     }
+
 }

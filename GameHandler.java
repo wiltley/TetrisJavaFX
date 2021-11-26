@@ -8,7 +8,7 @@ public class GameHandler {
     public static int timer;
     public static int fallSpeed;
     public static int level;
-    public static ArrayList<Block> blocksList = new ArrayList<>();
+    public static ArrayList<LBlock> blocksList = new ArrayList<>();
     public static int [][] gameGrid = new int[22][12];
 
     //IMPORTANT REMEMBER THAT NEW GAME CLEARS THE ARRAY
@@ -52,10 +52,10 @@ public class GameHandler {
 
     }
 
-
-    //test function
-
     public static void updateArray(){
-       gameGrid  = blocksList.get(0).moveRight(gameGrid);
+
+        gameGrid  = blocksList.get(0).moveRight(gameGrid);
+        blocksList.get(0).checkIfFree(gameGrid);
     }
+
 }

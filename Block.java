@@ -1,14 +1,20 @@
 package com.example.tetris;
+import java.util.HashMap;
 
 public abstract class Block {
 
     int[][] currentCoords;
+    public int current_state;
+    HashMap<Integer, Boolean> possibleStates;
 
     Block(){
 
-        // currentCords is an array that holds an array.
-        // the array that it holds is containing the x and y coordinates of the block in the main array.
-        // fix issue where stuff are inverted
+        possibleStates = new HashMap<Integer, Boolean>();
+
+        possibleStates.put(1,false);
+        possibleStates.put(2, false);
+        possibleStates.put(3, false);
+        possibleStates.put(4, false);
 
     }
 
@@ -81,11 +87,24 @@ public abstract class Block {
 
     }
 
+    public int[][] getSlice(int[][] array){
+
+        int[][] slice = new int[3][3];
+
+        for(int i = 0; i < 3; i++){
+            for(int j = 0; j < 3; j++){
+                slice[i][j] = array[currentCoords[2][0]-1 + i][currentCoords[2][1]-1+j];
+            }
+        }
+        return slice;
+    }
+
     public int[][] moveDown(int[][] array){
         return update(0,1,array);
     }
 
-    public abstract int[][] rotateR(int[][] array);
-    public abstract int[][] rotateL(int[][] array);
+    public abstract int[][] rotate(int[][] array, int dir);
+
+    public abstract void checkIfFree(int[][] array);
 
 }
