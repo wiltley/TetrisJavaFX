@@ -16,18 +16,24 @@ public class LBlock extends Block {
 
     }
     @Override
-    public int[][] rotate(int[][] array, int dir){
+    public void rotate(int dir){
 
-        if(possibleStates.get(current_state+dir)){
-            
+        int[] axis_rotate_top = new int[]{currentCoords[2][1]-1,currentCoords[2][1]+1};
+        int[] axis_rotate_bot = new int[]{currentCoords[2][1]+1,currentCoords[2][1]+1};
+
+        if(current_state+dir == 1){
+           currentCoords[0][1]+= 2;
+           currentCoords[1] = axis_rotate_top;
+
+
         }
-        return array;
 
     }
 
-    @Override
-    public void checkIfFree(int [][] array) {
-
+    // This entire thing right ehre may not actually be needed. It's just confusing me atm to behonest
+    // a different way I could go about checking is seeing if theres any confliction after having rotated
+    // and reflecting in array. Would be a lot simpler and I wouldn't need individual checkIfFree for each method.
+    /*
         int[][]slice = getSlice(array);
 
         if(slice[0][1] == 0 && slice[2][1] == 0 && slice[2][2] == 0){ this.possibleStates.put(1, true);}
@@ -41,7 +47,6 @@ public class LBlock extends Block {
 
         if(slice[1][0] == 0 && slice[2][0] == 0 && slice[1][2] == 0){this.possibleStates.put(4, true);}
         else{this.possibleStates.put(4,false);}
-
-    }
-
+    */
 }
+

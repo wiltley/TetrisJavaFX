@@ -8,7 +8,7 @@ public class Tetris {
     public static void main(String[] args) {
 
         GameHandler.new_game();
-        GameHandler.blocksList.add(new LBlock());
+        GameHandler.blocksList.add(new TBlock());
         UIController UI = new UIController();
 
         Scanner scan = new Scanner(System.in);
@@ -22,10 +22,16 @@ public class Tetris {
             scanned = scan.nextLine();
             System.out.println(scanned);
 
-            if(scanned.equals("r")){
+            System.out.println("alright something is wrong");
+            if(scanned.equals("m")) {
 
-                //GameHandler.blocksList.get(0).updateArray(GameHandler.gameGrid);
-                GameHandler.updateArray();
+                GameHandler.move(1);
+                GameHandler.printGrid();
+
+            }
+            if(scanned.equals("r")) {
+
+                GameHandler.rotate();
                 GameHandler.printGrid();
 
             }

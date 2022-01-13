@@ -8,7 +8,7 @@ public class GameHandler {
     public static int timer;
     public static int fallSpeed;
     public static int level;
-    public static ArrayList<LBlock> blocksList = new ArrayList<>();
+    public static ArrayList<TBlock> blocksList = new ArrayList<>();
     public static int [][] gameGrid = new int[22][12];
 
     //IMPORTANT REMEMBER THAT NEW GAME CLEARS THE ARRAY
@@ -21,7 +21,7 @@ public class GameHandler {
        }
 
        for(int i = 0; i < gameGrid.length; i++){
-           for(int j = 0; j < gameGrid[i].length; j++){
+           for(int j = gameGrid[i].length-1; j > -1; j--){
                if(j == 0 || j == 11 ||  i == 0 || i == 21){
                    gameGrid[i][j] = 1;
                }else{
@@ -52,10 +52,15 @@ public class GameHandler {
 
     }
 
-    public static void updateArray(){
+    public static void move(int dir){
 
-        gameGrid  = blocksList.get(0).moveRight(gameGrid);
-        blocksList.get(0).checkIfFree(gameGrid);
+        blocksList.get(0).drop(1);
+        printGrid();
+    }
+    public static void rotate(){
+
+        blocksList.get(0).rotate(1);
+        printGrid();
     }
 
 }

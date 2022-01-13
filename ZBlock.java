@@ -11,15 +11,10 @@ public class ZBlock extends Block {
     }
 
     @Override
-    public int[][] rotate(int[][] array, int dir){
+    public void rotate(int dir){
 
-        return array;
-
-    }
-
-    @Override
-    public void checkIfFree(int[][] array) {
 
     }
+
 
 }
