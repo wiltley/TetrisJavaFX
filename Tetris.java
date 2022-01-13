@@ -7,7 +7,9 @@ public class Tetris {
 
     public static void main(String[] args) {
 
+        TimeTracker tracker = new TimeTracker();
         GameHandler.new_game();
+        tracker.startTimer();
         GameHandler.blocksList.add(new TBlock());
         UIController UI = new UIController();
 

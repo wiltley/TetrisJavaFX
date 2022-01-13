@@ -1,8 +1,10 @@
 package com.example.tetris;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.effect.DropShadow;
@@ -11,6 +13,8 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
+import javafx.util.Duration;
+
 import java.util.ArrayList;
 
 public class UIController extends Application{
@@ -18,8 +22,6 @@ public class UIController extends Application{
         GridPane root = new GridPane();
         ArrayList<Rectangle> list = new ArrayList<>();
         DropShadow dropShadow = new DropShadow();
-
-
 
     private Parent createContent(int x, int y) {
         Region rect= new Region();
@@ -35,20 +37,20 @@ public class UIController extends Application{
         return new Pane(root);
     }
 
-
-
     private void drawNew(){
+
         int counter = 0;
+
+        for(int i = 0; i < list.size(); i ++){
+            root.getChildren().remove(list.get(i));
+        }
         list.clear();
-        Rectangle rect = new Rectangle(300, 600, Color.WHITESMOKE);
-        rect.setTranslateX(30);
-        rect.setTranslateY(55);
-        root.getChildren().add(rect);
+
 
         for(int i =0; i < GameHandler.gameGrid.length;i++) {
             for (int j = 0; j < GameHandler.gameGrid[0].length; j++) {
-                if(GameHandler.gameGrid[i][j] != 1 && GameHandler.gameGrid[i][j] != 0){
-                   list.add(new Rectangle(30,30,GameHandler.blocksList.get(0).color));
+                if(GameHandler.gameGrid[i][j] == 3 || GameHandler.gameGrid[i][j] == 2){
+                   list.add(new Rectangle(30,30,GameHandler.colorGrid[i][j]));
                    dropShadow.setColor(Color.BLACK);
                    dropShadow.setRadius(5);
                    list.get(counter).setEffect(dropShadow);
@@ -75,6 +77,7 @@ public class UIController extends Application{
         VBox main = new VBox();
         Scene scene = new Scene(createContent(1,1), 430, 680);
 
+
         scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -94,7 +97,18 @@ public class UIController extends Application{
         stage.setResizable(false);
         stage.show();
 
+        Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(0.5), ev -> {
+            drawNew();
+            GameHandler.blocksList.get(GameHandler.current_index).drop(0);
+            GameHandler.printGrid();
+            System.out.println("Done");
+        }));
+        timeline.setCycleCount(Animation.INDEFINITE);
+        timeline.play();
+
     }
+
+
     public void launch(){
         Application.launch();
     }

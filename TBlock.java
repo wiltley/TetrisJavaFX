@@ -3,30 +3,14 @@ package com.example.tetris;
 import javafx.scene.paint.Color;
 
 public class TBlock extends Block{
-    int state;
     TBlock(){
-        currentCoords = new int[3][3];
-        attemptCoords = new int[3][3];
-        color = Color.LIGHTPINK;
-
-        x_shift = 0;
-        y_shift = 0;
-        state = 0;
-
-        for(int i = 0; i < currentCoords[0].length;i++){
-
-            for(int j = 0; j < currentCoords.length;j++){
-
-                currentCoords[i][j] = 0;
-                attemptCoords[i][j] = 0;
-
-            }
-        }
-
-        currentCoords[0][0] = 2;
-        currentCoords[0][1] = 2;
-        currentCoords[0][2] = 2;
-        currentCoords[1][1] = 2;
+        color = Color.MEDIUMPURPLE;
+        currentCoords[0][0] = 3;
+        currentCoords[0][1] = 3;
+        currentCoords[0][2] = 3;
+        currentCoords[1][1] = 3;
+        x_shift = 4;
+        identifier = 4;
     }
 
 @Override

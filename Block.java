@@ -3,7 +3,9 @@ package com.example.tetris;
 import javafx.scene.paint.Color;
 
 public abstract class Block {
-
+    //this is a cheesy way of doing it but basically the first digit of identifier
+    //serves for collision checking and the second should serve to track the color
+    int identifier;
     int[][] currentCoords;
     int[][] attemptCoords;
     int[][] convertedAttemptCoords;
@@ -14,8 +16,14 @@ public abstract class Block {
     public int max_x_shift;
     public int max_y_shift;
     public Color color;
+    int state;
 
     Block() {
+
+        currentCoords = new int[3][3];
+        attemptCoords = new int[3][3];
+
+        state = 0;
 
         currentConvertedCoords = new int[4][];
         previousConvertedCoords = new int[4][];
@@ -65,15 +73,18 @@ public abstract class Block {
     public void clearPrevious() {
         for (int i = 0; i < previousConvertedCoords.length; i++) {
             GameHandler.gameGrid[previousConvertedCoords[i][0]][previousConvertedCoords[i][1]] = 0;
+            GameHandler.colorGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = Color.TRANSPARENT;
         }
     }
 
     public void update() {
+        System.out.println("CAlled");
         translate(currentCoords, currentConvertedCoords);
         clearPrevious();
 
         for (int i = 0; i < currentConvertedCoords.length; i++) {
             GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = 3;
+            GameHandler.colorGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = color;
         }
     }
 

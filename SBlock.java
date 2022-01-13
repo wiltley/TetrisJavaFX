@@ -1,19 +1,15 @@
 package com.example.tetris;
 
-public class SBlock extends Block{
+import javafx.scene.paint.Color;
+
+public class SBlock extends ZBlock{
 
     SBlock(){
-        currentCoords = new int[4][];
-        currentCoords[0] = new int[]{1,4};
-        currentCoords[1] = new int[]{1,3};
-        currentCoords[2] = new int[]{2,3};
-        currentCoords[3] = new int[]{2,2};
-    }
+        twos = 0;
+        zeros = 2;
 
-    @Override
-    public void rotate(int dir) {
+        color = Color.RED;
 
     }
-
 
 }
