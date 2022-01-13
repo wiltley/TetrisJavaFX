@@ -1,10 +1,13 @@
 package com.example.tetris;
 
+import javafx.scene.paint.Color;
+
 public class TBlock extends Block{
     int state;
     TBlock(){
         currentCoords = new int[3][3];
         attemptCoords = new int[3][3];
+        color = Color.LIGHTPINK;
 
         x_shift = 0;
         y_shift = 0;
@@ -36,28 +39,28 @@ public class TBlock extends Block{
         }
         new_stateClear(attemptCoords);
         if (state == 0) {
-            attemptCoords[1][0] = 2;
-            attemptCoords[1][1] = 2;
-            attemptCoords[1][2] = 2;
-            attemptCoords[2][1] = 2;
+            attemptCoords[1][0] = 3;
+            attemptCoords[1][1] = 3;
+            attemptCoords[1][2] = 3;
+            attemptCoords[2][1] = 3;
 
         } else if (state == 1) {
-            attemptCoords[0][1] = 2;
-            attemptCoords[1][1] = 2;
-            attemptCoords[1][2] = 2;
-            attemptCoords[2][1] = 2;
+            attemptCoords[0][1] = 3;
+            attemptCoords[1][1] = 3;
+            attemptCoords[1][2] = 3;
+            attemptCoords[2][1] = 3;
 
         } else if (state == 2) {
-            attemptCoords[1][0] = 2;
-            attemptCoords[1][1] = 2;
-            attemptCoords[1][2] = 2;
-            attemptCoords[0][1] = 2;
+            attemptCoords[1][0] = 3;
+            attemptCoords[1][1] = 3;
+            attemptCoords[1][2] = 3;
+            attemptCoords[0][1] = 3;
 
         }else if(state == 3){
-            attemptCoords[1][0] = 2;
-            attemptCoords[1][1] = 2;
-            attemptCoords[0][1] = 2;
-            attemptCoords[2][1] = 2;
+            attemptCoords[1][0] = 3;
+            attemptCoords[1][1] = 3;
+            attemptCoords[0][1] = 3;
+            attemptCoords[2][1] = 3;
         }
 
     if(!attemptRotation()){

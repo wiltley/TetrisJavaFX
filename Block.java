@@ -1,5 +1,7 @@
 package com.example.tetris;
 
+import javafx.scene.paint.Color;
+
 public abstract class Block {
 
     int[][] currentCoords;
@@ -11,6 +13,7 @@ public abstract class Block {
     public int y_shift;
     public int max_x_shift;
     public int max_y_shift;
+    public Color color;
 
     Block() {
 
@@ -43,7 +46,7 @@ public abstract class Block {
 
         for (int i = 0; i < convertedAttemptCoords.length; i++) {
             System.out.println(i);
-            if ((GameHandler.gameGrid[convertedAttemptCoords[i][0]][convertedAttemptCoords[i][1]] != 0) && (GameHandler.gameGrid[convertedAttemptCoords[i][0]][convertedAttemptCoords[i][1]] != 2)) {
+            if ((GameHandler.gameGrid[convertedAttemptCoords[i][0]][convertedAttemptCoords[i][1]] != 0) && (GameHandler.gameGrid[convertedAttemptCoords[i][0]][convertedAttemptCoords[i][1]] != 3)) {
                 System.out.println("failed");
                 return false;
 
@@ -70,7 +73,7 @@ public abstract class Block {
         clearPrevious();
 
         for (int i = 0; i < currentConvertedCoords.length; i++) {
-            GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = 2;
+            GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = 3;
         }
     }
 
@@ -97,16 +100,16 @@ public abstract class Block {
             if (checkBelow()) {
                 y_shift = y_shift + 1;
                 dupeArray(previousConvertedCoords, currentConvertedCoords);
+                update();
                 if(i == 0){break;}
             }else{break;}
         }
-        update();
     }
 
 
     public boolean check(int dir){
         for(int i = 0; i < currentConvertedCoords.length; i++){
-            if((GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]+ dir] != 0) && (GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]+ dir] != 2)){
+            if((GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]+ dir] != 0) && (GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]+ dir] != 3)){
                 return false;
             }
         }
@@ -115,7 +118,7 @@ public abstract class Block {
 
     public boolean checkBelow(){
             for(int i = 0; i < currentConvertedCoords.length;i ++){
-                if((GameHandler.gameGrid[currentConvertedCoords[i][0]+1][currentConvertedCoords[i][1]] != 0 && GameHandler.gameGrid[currentConvertedCoords[i][0]+1][currentConvertedCoords[i][1]]!= 2)){
+                if((GameHandler.gameGrid[currentConvertedCoords[i][0]+1][currentConvertedCoords[i][1]] != 0 && GameHandler.gameGrid[currentConvertedCoords[i][0]+1][currentConvertedCoords[i][1]]!= 3)){
                     return false;
                 }
             }
@@ -131,6 +134,12 @@ public abstract class Block {
             dupeArray(previousConvertedCoords, currentConvertedCoords);
         }
         update();
+    }
+
+    public void changeToNonActive() {
+        for (int i = 0; i < currentConvertedCoords.length; i++) {
+            GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = 2;
+        }
     }
 
     public abstract void rotate(int dir);

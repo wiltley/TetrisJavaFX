@@ -1,5 +1,5 @@
 package com.example.tetris;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class GameHandler {
 
@@ -8,12 +8,12 @@ public class GameHandler {
     public static int timer;
     public static int fallSpeed;
     public static int level;
-    public static ArrayList<TBlock> blocksList = new ArrayList<>();
+    public static LinkedList<Block> blocksList = new LinkedList<>();
+    public static int current_index;
     public static int [][] gameGrid = new int[22][12];
 
+
     //IMPORTANT REMEMBER THAT NEW GAME CLEARS THE ARRAY
-
-
     public static void new_game(){
 
        if (score > highscore){
@@ -35,6 +35,9 @@ public class GameHandler {
        timer = 0;
        fallSpeed = 0;// should be dependent on timer in some way
        blocksList.clear();
+       current_index = 0;
+        newBlock();
+        System.out.println("The size of blockslist is: " + blocksList.size());
 
     }
 
@@ -52,15 +55,42 @@ public class GameHandler {
 
     }
 
-    public static void move(int dir){
+    public static void newBlock(){
+        for(int i =0; i < 100; i ++){
+            blocksList.add(new TBlock());
+        }
 
-        blocksList.get(0).drop(1);
+    }
+
+
+    public static void move(int dir){
+        System.out.println("The size of blockslist is: " + blocksList.size());
+        if(dir == 1){
+            blocksList.get(current_index).moveHorizontally(1);
+        }else{
+            blocksList.get(current_index).moveHorizontally(-1);
+        }
         printGrid();
     }
     public static void rotate(){
 
-        blocksList.get(0).rotate(1);
+        System.out.println("The size of blockslist is: " + blocksList.size());
+        blocksList.get(current_index).rotate(1);
         printGrid();
+    }
+
+
+    public static void drop(int i){
+       if(i == 1){
+           blocksList.get(current_index).drop(1);
+       }
+       else{
+           blocksList.get(current_index).drop(0);
+       }
+
+        blocksList.get(current_index).changeToNonActive();
+        current_index+=1;
+        System.out.println("The size of blockslist is: " + blocksList.size());
     }
 
 }

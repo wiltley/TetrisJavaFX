@@ -27,8 +27,8 @@ public class UIController extends Application{
         Rectangle box = new Rectangle(100, 50, Color.TRANSPARENT);
 
         rect.setTranslateX(25);
-        rect.setTranslateY(60);
-        rect.setPrefSize(310,570);
+        rect.setTranslateY(55);
+        rect.setPrefSize(310,610);
         root.getChildren().add(rect);
         transform(box);
 
@@ -40,20 +40,20 @@ public class UIController extends Application{
     private void drawNew(){
         int counter = 0;
         list.clear();
-        Rectangle rect = new Rectangle(300, 560, Color.WHITESMOKE);
+        Rectangle rect = new Rectangle(300, 600, Color.WHITESMOKE);
         rect.setTranslateX(30);
-        rect.setTranslateY(60);
+        rect.setTranslateY(55);
         root.getChildren().add(rect);
 
         for(int i =0; i < GameHandler.gameGrid.length;i++) {
             for (int j = 0; j < GameHandler.gameGrid[0].length; j++) {
-                if(GameHandler.gameGrid[i][j] == 2){
-                   list.add(new Rectangle(30,30,Color.RED));
+                if(GameHandler.gameGrid[i][j] != 1 && GameHandler.gameGrid[i][j] != 0){
+                   list.add(new Rectangle(30,30,GameHandler.blocksList.get(0).color));
                    dropShadow.setColor(Color.BLACK);
                    dropShadow.setRadius(5);
                    list.get(counter).setEffect(dropShadow);
                    list.get(counter).setTranslateX(j*30);
-                   list.get(counter).setTranslateY(i*30-240);
+                   list.get(counter).setTranslateY(i*30-260);
                    root.getChildren().add(list.get(counter));
                    counter += 1;
                    System.out.println(counter);
@@ -79,9 +79,10 @@ public class UIController extends Application{
             @Override
             public void handle(KeyEvent event) {
                 switch (event.getCode()) {
-                    case LEFT:  moveLeft(); break;
-                    case RIGHT: moveRight(); break;
-                    case SPACE: rotate(); break;
+                    case LEFT:  GameHandler.move(-1); break;
+                    case RIGHT: GameHandler.move(1); break;
+                    case SPACE: GameHandler.drop(1); break;
+                    case UP: GameHandler.rotate(); break;
                 }
 
                 drawNew();
@@ -94,20 +95,6 @@ public class UIController extends Application{
         stage.show();
 
     }
-
-    private void moveRight(){
-       GameHandler.move(1);
-       System.out.println();
-    }
-
-    private void moveLeft(){
-        GameHandler.move(-1);
-    }
-
-    private void rotate(){
-        GameHandler.rotate();
-    }
-
     public void launch(){
         Application.launch();
     }
