@@ -115,7 +115,6 @@ public class GameHandler {
     }
 
     public static void shiftGrid(int d){
-       int [] shiftDown = [];
 
     }
 
