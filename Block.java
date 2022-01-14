@@ -13,8 +13,6 @@ public abstract class Block {
     int[][] previousConvertedCoords;
     public int x_shift;
     public int y_shift;
-    public int max_x_shift;
-    public int max_y_shift;
     public Color color;
     int state;
 
@@ -23,7 +21,6 @@ public abstract class Block {
         currentCoords = new int[3][3];
         attemptCoords = new int[3][3];
 
-        state = 0;
 
         currentConvertedCoords = new int[4][];
         previousConvertedCoords = new int[4][];
@@ -42,8 +39,15 @@ public abstract class Block {
                 if (array[i][j] != 0) {
                     convertedArray[index][0] = i + y_shift + 1;
                     convertedArray[index][1] = j + x_shift + 1;
+                    System.out.print(convertedArray[index][0]);
+                    System.out.print(" ");
+                    System.out.print(convertedArray[index][1]);
+                    System.out.print("/");
+
                     index += 1;
                 }
+                System.out.println();
+
             }
         }
 
@@ -55,7 +59,6 @@ public abstract class Block {
         for (int i = 0; i < convertedAttemptCoords.length; i++) {
             System.out.println(i);
             if ((GameHandler.gameGrid[convertedAttemptCoords[i][0]][convertedAttemptCoords[i][1]] != 0) && (GameHandler.gameGrid[convertedAttemptCoords[i][0]][convertedAttemptCoords[i][1]] != 3)) {
-                System.out.println("failed");
                 return false;
 
             }
@@ -78,7 +81,6 @@ public abstract class Block {
     }
 
     public void update() {
-        System.out.println("CAlled");
         translate(currentCoords, currentConvertedCoords);
         clearPrevious();
 
@@ -151,6 +153,7 @@ public abstract class Block {
         for (int i = 0; i < currentConvertedCoords.length; i++) {
             GameHandler.gameGrid[currentConvertedCoords[i][0]][currentConvertedCoords[i][1]] = 2;
         }
+
     }
 
     public abstract void rotate(int dir);

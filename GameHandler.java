@@ -20,25 +20,30 @@ public class GameHandler {
 
 
     //IMPORTANT REMEMBER THAT NEW GAME CLEARS THE ARRAY
+    public static void initialize(int[][] grid, int resetColor){
+        for(int i = 0; i < grid.length; i++){
+            for(int j = grid[i].length-1; j > -1; j--){
+                if(j == 0 || j == 11 ||  i == 0 || i == 21){
+                    grid[i][j] = 1;
+                }else{
+                    grid[i][j] = 0;
+                }
+
+                if(resetColor == 1) {
+                    colorGrid[i][j] = Color.TRANSPARENT;
+                }
+
+            }
+        }
+    }
     public static void new_game(){
 
        if (score > highscore){
            highscore = score;
        }
 
-       for(int i = 0; i < gameGrid.length; i++){
-           for(int j = gameGrid[i].length-1; j > -1; j--){
-               if(j == 0 || j == 11 ||  i == 0 || i == 21){
-                   gameGrid[i][j] = 1;
-                   colorGrid[i][j] = Color.TRANSPARENT;
-               }else{
-                   gameGrid[i][j] = 0;
-                   colorGrid[i][j] = Color.TRANSPARENT;
-               }
+       initialize(gameGrid, 1);
 
-           }
-       }
-        //might wanna make this its own class
        score = 0;
        fallSpeed = 0;// should be dependent on timer in some way
        blocksList.clear();
@@ -88,25 +93,23 @@ public class GameHandler {
         printGrid();
     }
 
+    public static boolean checkFull(int index, int n){
+        for(int i =1; i < gameGrid[index].length-1;i++){
+           if(gameGrid[index][i] != n){
+               return false;
+           }
+        }
+        return true;
+    }
+
     public static int checkLineClear() {
 
-        int flag = 0;
         int counter = 0;
-
         for (int i = 0; i < gameGrid.length-1; i++) {
-            flag = 0;
-
-            for (int j = 1; j < gameGrid[i].length - 2; j++) {
-                if(flag == 0) {
-                   if(gameGrid[i][j] == 0){
-                       flag = 1;
-                   }
-                }
-            }
-
-            if(flag == 0){
+            if(checkFull(i, 2)){
                 for (int j = 1; j < gameGrid[i].length-1; j++) {
-                    gameGrid[i][j] = 0;
+                    //gameGrid[i][j] = 2;
+                    colorGrid[i][j] = Color.TRANSPARENT;
                 }
                 counter+=1;
             }
@@ -114,17 +117,35 @@ public class GameHandler {
         return counter;
     }
 
-    public static void shiftGrid(int d){
+    public static void reconstruct(int d){
+        for(int i = 1; i < gameGrid.length-1; i++){
+            if(checkFull(i, 2)){
+                for(int j = i; j > 1; j--){
+                    for(int k = 0; k < gameGrid[i].length; k ++){
+                        gameGrid[j][k] = gameGrid[j-1][k];
+                        colorGrid[j][k]= colorGrid[j-1][k];
 
+                    }
+
+                    //these two lines below, without the for loop above caused me a massive headache
+                    //--reminder to investigate into the behaviour of these two lines and the "why" behind the stupid bug i spent 2 hours trying to fix.
+                    //gameGrid[j] = gameGrid[j-1];
+                    //colorGrid[j]= colorGrid[j-1];
+
+                }
+
+            }
+        }
     }
 
     public static void endTurn(){
+        //System.out.println("called");
         blocksList.get(current_index).changeToNonActive();
-        current_index+=1;
-        printGrid();
-        blocksList.get(current_index).update();
         int toShift = checkLineClear();
-        if(toShift != 0){}
+        if(toShift != 0){reconstruct(toShift);}
+        //printGrid();
+        current_index+=1;
+        blocksList.get(current_index).update();
 
     }
 
@@ -137,7 +158,8 @@ public class GameHandler {
            blocksList.get(current_index).drop(0);
        }
 
-        System.out.println("The size of blockslist is: " + blocksList.size());
+        //System.out.println("The size of blockslist is: " + blocksList.size());
+
     }
 
 }

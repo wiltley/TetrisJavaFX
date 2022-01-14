@@ -51,6 +51,7 @@ public class UIController extends Application{
             for (int j = 0; j < GameHandler.gameGrid[0].length; j++) {
                 if(GameHandler.gameGrid[i][j] == 3 || GameHandler.gameGrid[i][j] == 2){
                    list.add(new Rectangle(30,30,GameHandler.colorGrid[i][j]));
+                   //System.out.print(GameHandler.colorGrid[i][j]);
                    dropShadow.setColor(Color.BLACK);
                    dropShadow.setRadius(5);
                    list.get(counter).setEffect(dropShadow);
@@ -58,7 +59,7 @@ public class UIController extends Application{
                    list.get(counter).setTranslateY(i*30-260);
                    root.getChildren().add(list.get(counter));
                    counter += 1;
-                   System.out.println(counter);
+                   //System.out.println(counter);
                 }
             }
         }
